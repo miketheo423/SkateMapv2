@@ -5,7 +5,7 @@ class SpotList extends Component {
   render() {
     return (
       <View>
-        <Text>Employee List Component</Text>
+        <Text>Spot List Component</Text>
       </View>
     );
   };
