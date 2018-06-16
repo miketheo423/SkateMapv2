@@ -10,6 +10,8 @@ import {
   ImageBackground,
   ActivityIndicator
 } from 'react-native';
+import { connect } from 'react-redux';
+import { emailChanged, passwordChanged } from '../../actions';
 import { Actions } from 'react-native-router-flux';
 
 const { width, height } = Dimensions.get("window");
@@ -19,15 +21,23 @@ const mark = require("./login1_mark.png");
 const lockIcon = require("./login1_lock.png");
 const personIcon = require("./login1_person.png");
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
 
-  onSignUpPress() {
-    console.log('signup pressed');
-    Actions.signup();
+  onEmailChange(text) {
+    this.props.emailChanged(text);
+  }
+
+  onPasswordChange(text) {
+    this.props.passwordChanged(text);
   }
 
   onLoginPress() {
     console.log('logging in');
+  }
+
+  onSignUpLinkPress() {
+    console.log('signup pressed');
+    Actions.signup();
   }
 
   renderButton() {
@@ -47,9 +57,11 @@ export default class LoginScreen extends Component {
                 <Image source={personIcon} style={styles.icon} resizeMode="contain" />
               </View>
               <TextInput 
-                placeholder="Username" 
+                placeholder="Email" 
                 placeholderTextColor="#FFF"
-                style={styles.input} 
+                style={styles.input}
+                onChangeText={this.onEmailChange.bind(this)}
+                value={this.props.email}
               />
             </View>
             <View style={styles.inputWrap}>
@@ -58,9 +70,11 @@ export default class LoginScreen extends Component {
               </View>
               <TextInput 
                 placeholderTextColor="#FFF"
-                placeholder="Password" 
-                style={styles.input} 
-                secureTextEntry 
+                placeholder="Password"
+                secureTextEntry
+                style={styles.input}
+                onChangeText={this.onPasswordChange.bind(this)}
+                value={this.props.password}
               />
             </View>
             <TouchableOpacity activeOpacity={.5}>
@@ -79,7 +93,7 @@ export default class LoginScreen extends Component {
               <Text style={styles.accountText}>Don't have an account?</Text>
               <TouchableOpacity 
                 activeOpacity={.5}
-                onPress={this.onSignUpPress.bind(this)}>
+                onPress={this.onSignUpLinkPress.bind(this)}>
                 <View>
                   <Text style={styles.signupLinkText}>Sign Up</Text>
                 </View>
@@ -91,6 +105,17 @@ export default class LoginScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  const { email, password } = state.auth;
+
+  return { email, password }
+};
+
+export default connect(mapStateToProps, {
+  emailChanged,
+  passwordChanged,
+})(LoginScreen);
 
 const styles = StyleSheet.create({
   container: {

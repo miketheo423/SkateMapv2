@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native'
+import { connect } from 'react-redux';
+import { emailChanged, passwordChanged, usernameChanged } from '../../actions';
 import { Actions } from 'react-native-router-flux';
 
 const background = require("./signup_bg.png");
@@ -18,7 +20,19 @@ const lockIcon = require("./signup_lock.png");
 const emailIcon = require("./signup_email.png");
 const birthdayIcon = require("./signup_birthday.png");
 
-export default class SignupScreen extends Component {
+class SignupScreen extends Component {
+
+  onEmailChange(text) {
+    this.props.emailChanged(text);
+  }
+
+  onPasswordChange(text) {
+    this.props.passwordChanged(text);
+  }
+
+  onUsernameChange(text) {
+    this.props.usernameChanged(text);
+  }
 
   render() {
     return (
@@ -60,7 +74,9 @@ export default class SignupScreen extends Component {
                 style={[styles.input, styles.whiteFont]}
                 placeholder="Username"
                 placeholderTextColor="#FFF"
-                underlineColorAndroid='transparent' 
+                underlineColorAndroid='transparent'
+                onChangeText={this.onUsernameChange.bind(this)}
+                value={this.props.username}
               />
             </View>
 
@@ -76,6 +92,8 @@ export default class SignupScreen extends Component {
                 style={[styles.input, styles.whiteFont]}
                 placeholder="Email"
                 placeholderTextColor="#FFF" 
+                onChangeText={this.onEmailChange.bind(this)}
+                value={this.props.email}
               />
             </View>
 
@@ -92,6 +110,8 @@ export default class SignupScreen extends Component {
                 style={[styles.input, styles.whiteFont]}
                 placeholder="Password"
                 placeholderTextColor="#FFF" 
+                onChangeText={this.onPasswordChange.bind(this)}
+                value={this.props.password}
               />
             </View>
 
@@ -132,6 +152,18 @@ export default class SignupScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  const { username, email, password } = state.auth;
+
+  return { username, email, password }
+}
+
+export default connect(mapStateToProps, {
+  emailChanged,
+  passwordChanged,
+  usernameChanged,
+})(SignupScreen);
 
 let styles = StyleSheet.create({
   container: {

@@ -33,5 +33,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, user: action.payload };
     case AUTHENTICATE_USER_FAIL:
       return { ...state, error: action.payload }
+    default:
+      return state;
   }
 }

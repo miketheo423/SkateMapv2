@@ -1,4 +1,4 @@
-import firebase from 'firbase';
+import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 
 import {
