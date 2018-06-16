@@ -6,6 +6,10 @@ import SpotList from './components/SpotList';
 import SpotMap from './components/SpotMap';
 import Profile from './components/Profile';
 
+// Auth Screens
+import LoginScreen from './components/login';
+import SignupScreen from './components/signup';
+
 
 const tabIcon = ({ selected, title }) => {
   return (
@@ -17,7 +21,10 @@ const RouterComponent = () => {
   return (
     <Router>
       <Scene key="root" hideNavBar>
-      
+        <Scene key="Auth">
+          <Scene key="login" component={LoginScreen} initial hideNavBar  />
+          <Scene key="signup" component={SignupScreen}  hideNavBar />
+        </Scene>
         <Scene
           key="tabbar"
           tabs
