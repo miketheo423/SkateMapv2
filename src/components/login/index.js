@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
   Image,
   Dimensions,
   TextInput,
-  Button,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  ActivityIndicator
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
@@ -25,6 +24,14 @@ export default class LoginScreen extends Component {
   onSignUpPress() {
     console.log('signup pressed');
     Actions.signup();
+  }
+
+  onLoginPress() {
+    console.log('logging in');
+  }
+
+  renderButton() {
+    return <ActivityIndicator size="large" color="#00B2EE" />
   }
 
   render() {
