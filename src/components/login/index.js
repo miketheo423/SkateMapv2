@@ -140,6 +140,8 @@ const styles = StyleSheet.create({
   inputWrap: {
     flexDirection: "row",
     marginVertical: 10,
+    marginLeft: 20,
+    marginRight: 20,
     height: 40,
     borderBottomWidth: 1,
     borderBottomColor: "#CCC"
@@ -159,11 +161,13 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   button: {
-    backgroundColor: "#FF3366",
+    backgroundColor: "#00B2EE",
     paddingVertical: 20,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
+    marginLeft: 20,
+    marginRight: 20,
   },
   buttonText: {
     color: "#FFF",

@@ -137,7 +137,7 @@ class SignupScreen extends Component {
 
             <TouchableOpacity>
               <View style={styles.signup}>
-                <Text style={styles.whiteFont}>Join</Text>
+                <Text style={styles.buttonText}>Join</Text>
               </View>
             </TouchableOpacity>
 
@@ -176,13 +176,15 @@ let styles = StyleSheet.create({
   },
   headerContainer: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   inputsContainer: {
-    flex: 2,
+    flex: 3,
     marginTop: 80,
   },
   footerContainer: {
-    flex: 1
+    flex: 2
   },
   headerIconView: {
     marginLeft: 10,
@@ -199,7 +201,6 @@ let styles = StyleSheet.create({
   headerTitleView: {
     backgroundColor: 'transparent',
     marginTop: 25,
-    marginLeft: 25,
   },
   titleViewText: {
     fontSize: 40,
@@ -214,6 +215,8 @@ let styles = StyleSheet.create({
     borderColor: 'transparent',
     flexDirection: 'row',
     height: 75,
+    marginLeft: 20,
+    marginRight: 20,
   },
   iconContainer: {
     paddingHorizontal: 15,
@@ -229,11 +232,17 @@ let styles = StyleSheet.create({
     fontSize: 16,
   },
   signup: {
-    backgroundColor: '#FF3366',
-    paddingVertical: 25,
+    backgroundColor: '#00B2EE',
+    paddingVertical: 15,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 15,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  buttonText: {
+    fontSize: 22,
+    color: '#fff'
   },
   signin: {
     justifyContent: 'center',
