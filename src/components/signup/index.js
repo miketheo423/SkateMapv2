@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
   Image,
   TextInput,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
+  ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, usernameChanged } from '../../actions';
+import { emailChanged, passwordChanged, usernameChanged, authenticateUser } from '../../actions';
 import { Actions } from 'react-native-router-flux';
 
 const background = require("./signup_bg.png");
@@ -22,6 +22,10 @@ const birthdayIcon = require("./signup_birthday.png");
 
 class SignupScreen extends Component {
 
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
@@ -32,6 +36,35 @@ class SignupScreen extends Component {
 
   onUsernameChange(text) {
     this.props.usernameChanged(text);
+  }
+
+  onButtonPress() {
+    const { email, password, username } = this.props;
+    this.props.authenticateUser({ email, password, username });
+  }
+
+  renderButton() {
+    if(this.props.loading) {
+      return <ActivityIndicator />
+    }
+
+    return (
+    <TouchableOpacity onPress={this.onButtonPress.bind(this)}>
+      <View style={styles.signup}>
+        <Text style={styles.buttonText}>Join</Text>
+      </View>
+    </TouchableOpacity>
+    );
+  }
+
+  renderError() {
+    if(this.props.error) {
+      return (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{this.props.error}</Text>
+        </View>
+      );
+    }
   }
 
   render() {
@@ -135,11 +168,13 @@ class SignupScreen extends Component {
 
           <View style={styles.footerContainer}>
 
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <View style={styles.signup}>
                 <Text style={styles.buttonText}>Join</Text>
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            {this.renderError()}
+            {this.renderButton()}
 
             <TouchableOpacity onPress={() => Actions.pop()}>
               <View style={styles.signin}>
@@ -154,15 +189,16 @@ class SignupScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  const { username, email, password } = state.auth;
+  const { username, email, password, error, loading } = state.auth;
 
-  return { username, email, password }
+  return { username, email, password, error, loading }
 }
 
 export default connect(mapStateToProps, {
   emailChanged,
   passwordChanged,
   usernameChanged,
+  authenticateUser,
 })(SignupScreen);
 
 let styles = StyleSheet.create({
@@ -230,6 +266,15 @@ let styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
+  },
+  errorContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  errorText: {
+    fontSize: 14,
+    color: 'red'
   },
   signup: {
     backgroundColor: '#00B2EE',

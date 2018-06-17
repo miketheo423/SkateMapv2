@@ -13,7 +13,7 @@ const INITIAL_STATE = {
   username: '',
   user: null,
   error: '',
-  loading: 'false'
+  loading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -32,7 +32,7 @@ export default (state = INITIAL_STATE, action) => {
     case AUTHENTICATE_USER_SUCCESS:
       return { ...state, user: action.payload };
     case AUTHENTICATE_USER_FAIL:
-      return { ...state, error: action.payload }
+      return { ...state, error: action.payload, loading: false }
     default:
       return state;
   }
