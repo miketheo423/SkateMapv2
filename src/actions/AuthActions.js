@@ -31,19 +31,25 @@ export const usernameChanged = (text) => {
   }
 }
 
-export const authenticateUser = ({ email, password, username }) => {
+export const createUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: AUTHENTICATE_USER_START });
 
-    if(username) {
-      firebase.auth().createUserWithEmailAndPassword(email,password)
+      firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((user) => {
-          console.log(user);
-          addUserName(user, username)
           authenticateUserSuccess(dispatch, user)
-        })
-        .catch((error) => authenticateUserFail(dispatch, error))
-    }
+        }).catch((error) => authenticateUserFail(dispatch, error));
+  }
+}
+
+export const loginUser = ({ email, password }) => {
+  return (dispatch) => {
+    dispatch({ type: AUTHENTICATE_USER_START });
+    console.log(email, password, '---- logging in user ------');
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        authenticateUserSuccess(dispatch, user)
+      }).catch((error) => authenticateUserFail(dispatch, error));
   }
 }
 

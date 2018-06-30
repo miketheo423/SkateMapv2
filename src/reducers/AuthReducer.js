@@ -10,7 +10,7 @@ import {
 const INITIAL_STATE = {
   email: '',
   password: '',
-  username: '',
+  // username: '',
   user: null,
   error: '',
   loading: false
@@ -24,9 +24,9 @@ export default (state = INITIAL_STATE, action) => {
     case PASSWORD_CHANGED:
       console.log('password reducer', action.payload)
       return { ...state, password: action.payload };
-    case USERNAME_CHANGED:
-      console.log('username reducer', action.payload)
-      return { ...state, username: action.payload };
+    // case USERNAME_CHANGED:
+    //   console.log('username reducer', action.payload)
+    //   return { ...state, username: action.payload };
     case AUTHENTICATE_USER_START:
       return { ...state, loading: true, error: '' };
     case AUTHENTICATE_USER_SUCCESS:

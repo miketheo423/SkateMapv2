@@ -24,6 +24,7 @@ class App extends Component {
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    console.ignoredYellowBox = ['Remote debugger'];
 
     return (
       <Provider store={store}>
