@@ -10,7 +10,7 @@ import {
   ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, usernameChanged, authenticateUser } from '../../actions';
+import { emailChanged, passwordChanged, createUser } from '../../actions';
 import { Actions } from 'react-native-router-flux';
 
 const background = require("./signup_bg.png");
@@ -34,13 +34,13 @@ class SignupScreen extends Component {
     this.props.passwordChanged(text);
   }
 
-  onUsernameChange(text) {
-    this.props.usernameChanged(text);
-  }
+  // onUsernameChange(text) {
+  //   this.props.usernameChanged(text);
+  // }
 
   onButtonPress() {
-    const { email, password, username } = this.props;
-    this.props.authenticateUser({ email, password, username });
+    const { email, password } = this.props;
+    this.props.createUser({ email, password });
   }
 
   renderButton() {
@@ -94,8 +94,9 @@ class SignupScreen extends Component {
           </View>
 
           <View style={styles.inputsContainer}>
-
-            <View style={styles.inputContainer}>
+          
+ 
+            {/* <View style={styles.inputContainer}>
               <View style={styles.iconContainer}>
                 <Image 
                   source={personIcon}
@@ -111,7 +112,7 @@ class SignupScreen extends Component {
                 onChangeText={this.onUsernameChange.bind(this)}
                 value={this.props.username}
               />
-            </View>
+            </View> */}
 
             <View style={styles.inputContainer}>
               <View style={styles.iconContainer}>
@@ -189,16 +190,16 @@ class SignupScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  const { username, email, password, error, loading } = state.auth;
+  const { email, password, error, loading } = state.auth;
 
-  return { username, email, password, error, loading }
+  return { email, password, error, loading }
 }
 
 export default connect(mapStateToProps, {
   emailChanged,
   passwordChanged,
-  usernameChanged,
-  authenticateUser,
+  // usernameChanged,
+  createUser,
 })(SignupScreen);
 
 let styles = StyleSheet.create({

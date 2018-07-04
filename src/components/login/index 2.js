@@ -11,7 +11,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged } from '../../actions';
+import { emailChanged, passwordChanged, loginUser } from '../../actions';
 import { Actions } from 'react-native-router-flux';
 
 const { width, height } = Dimensions.get("window");
@@ -32,16 +32,30 @@ class LoginScreen extends Component {
   }
 
   onLoginPress() {
-    console.log('logging in');
+    const { email, password } = this.props;
+    console.log(email, password);
+
+    this.props.loginUser({ email, password });
   }
 
   onSignUpLinkPress() {
-    console.log('signup pressed');
     Actions.signup();
   }
 
   renderButton() {
-    return <ActivityIndicator size="large" color="#00B2EE" />
+    if(this.props.loading) {
+      return <ActivityIndicator size="large" color="#00B2EE" />
+    } 
+
+    return (
+      <TouchableOpacity 
+        activeOpacity={.5}
+        onPress={this.onLoginPress.bind(this)}>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>Sign In</Text>
+        </View>
+      </TouchableOpacity>
+    );
   }
 
   render() {
@@ -82,11 +96,7 @@ class LoginScreen extends Component {
                 <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={.5}>
-              <View style={styles.button}>
-                <Text style={styles.buttonText}>Sign In</Text>
-              </View>
-            </TouchableOpacity>
+            {this.renderButton()}
           </View>
           <View style={styles.container}>
             <View style={styles.signupWrap}>
@@ -107,14 +117,15 @@ class LoginScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  const { email, password } = state.auth;
+  const { email, password, error, loading } = state.auth;
 
-  return { email, password }
+  return { email, password, error, loading }
 };
 
 export default connect(mapStateToProps, {
   emailChanged,
   passwordChanged,
+  loginUser,
 })(LoginScreen);
 
 const styles = StyleSheet.create({
