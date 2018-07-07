@@ -8,8 +8,8 @@ import Profile from './components/Profile';
 import CreateSpot from './components/CreateSpot';
 
 // Auth Screens
-// import LoginScreen from './components/login';
-// import SignupScreen from './components/signup';
+import LoginScreen from './components/login';
+import SignupScreen from './components/signup';
 
 
 const tabIcon = ({ selected, title }) => {
@@ -22,10 +22,10 @@ const RouterComponent = () => {
   return (
     <Router>
       <Scene key="root" hideNavBar>
-        {/* <Scene key="Auth">
+        <Scene key="Auth">
           <Scene key="login" component={LoginScreen} initial hideNavBar  />
           <Scene key="signup" component={SignupScreen}  hideNavBar />
-        </Scene> */}
+        </Scene>
         <Scene key="CreateFlow">
           <Scene key="CreateForm" component={CreateSpot} title="Create Spot" initial />
         </Scene>

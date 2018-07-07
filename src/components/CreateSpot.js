@@ -9,6 +9,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 import { Container,Header,  Content, Form, Item, Input, Label } from 'native-base';
+import firebase from 'firebase';
 
 // import { FormLabel, FormInput } from 'react-native-elements';
 import CheckBox from 'react-native-modest-checkbox';
@@ -60,15 +61,13 @@ export default class CreateForm extends Component {
 
 	handleSave = () => {
 		console.log(this.state);
-		  fetch('https://skatemapv2.firebaseio.com/spots.json', {
-		    method: 'POST',
-		    headers: {
-		      'Accept': 'application/json',
-		      'Content-Type': 'application/json',
-		    },
-		    body: JSON.stringify(this.state)
-		  });
+			const { name, desc, features } = this.state;
 
+			firebase.database().ref(`/spots`)
+				.push({ name, desc, features })
+				.then(() => console.log('---- then push ----'))
+				// returns user to previous screen
+				.catch(error => console.log(error));
   }
   
   renderCheckBoxes() {
@@ -98,12 +97,12 @@ export default class CreateForm extends Component {
 			<Content>
 				<Form>
 					<Item floatingLabel>
-						<Label>Username</Label>
-						<Input onChangeText={event => this.onDescChange(event)} />
+						<Label>Spot Name</Label>
+						<Input onChangeText={event => this.onNameChange(event)}/>
 					</Item>
 					<Item floatingLabel last>
-						<Label>Password</Label>
-						<Input onChangeText={event => this.onNameChange(event)}/>
+						<Label>Description</Label>
+						<Input onChangeText={event => this.onDescChange(event)} />
 					</Item>
 				</Form>
 			</Content>
