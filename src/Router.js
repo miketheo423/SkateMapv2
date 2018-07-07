@@ -27,7 +27,7 @@ const RouterComponent = () => {
           <Scene key="signup" component={SignupScreen}  hideNavBar />
         </Scene> */}
         <Scene key="CreateFlow">
-          <Scene key="CreateForm" component={CreateSpot} initial />
+          <Scene key="CreateForm" component={CreateSpot} title="Create Spot" initial />
         </Scene>
 
         <Scene

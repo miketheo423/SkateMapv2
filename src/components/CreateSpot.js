@@ -8,6 +8,8 @@ import {
   FlatList,
   TouchableHighlight
 } from 'react-native';
+import { Container,Header,  Content, Form, Item, Input, Label } from 'native-base';
+
 // import { FormLabel, FormInput } from 'react-native-elements';
 import CheckBox from 'react-native-modest-checkbox';
 
@@ -91,15 +93,21 @@ export default class CreateForm extends Component {
 
 	render() {
 		return(
-			<View style={styles.manincontainer}>
-				<View style={styles.formContainer}>
-					{/* <FormLabel>Name</FormLabel>
-					<FormInput 
-						onChangeText={event => this.onNameChange(event)}/>
-					<FormLabel>Description</FormLabel>
-					<FormInput 
-						onChangeText={event => this.onDescChange(event)} /> */}
-				</View>
+
+			<Container style={styles.manincontainer}>
+			<Content>
+				<Form>
+					<Item floatingLabel>
+						<Label>Username</Label>
+						<Input onChangeText={event => this.onDescChange(event)} />
+					</Item>
+					<Item floatingLabel last>
+						<Label>Password</Label>
+						<Input onChangeText={event => this.onNameChange(event)}/>
+					</Item>
+				</Form>
+			</Content>
+			
 				<View style={styles.featuresContainer}>
 					<View style={styles.featuresContent}>
             {this.renderCheckBoxes()}
@@ -113,8 +121,7 @@ export default class CreateForm extends Component {
 						<Text style={styles.buttonText}>Create Spot</Text>
 					</TouchableHighlight>
 				</View>
-        
-			</View>
+			</Container>
 		);
 	}
 }
